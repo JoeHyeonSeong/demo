@@ -1,7 +1,6 @@
 package com.koscom.demo.domain.posts;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +30,14 @@ public class PostsRepositoryTest {
         String contents="test contents";
         postsRepository.save(Posts.builder()
                 .title(title)
-                .contents(contents)
+                .content(contents)
                 .build());
         List<Posts> result=postsRepository.findAll();
         System.out.println(result.get(0).getId());
         System.out.println(result.get(0).getTitle());
 
         assertThat(result.get(0).getTitle()).isEqualTo(title);
-        assertThat(result.get(0).getContents()).isEqualTo(contents);
+        assertThat(result.get(0).getContent()).isEqualTo(contents);
     }
 
 }

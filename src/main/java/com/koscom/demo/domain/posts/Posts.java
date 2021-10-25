@@ -19,14 +19,19 @@ public class Posts {
     private String title;
 
     @Column(length = 2000,nullable = false)
-    private String contents;
+    private String content;
 
     private String author;//@Column없으면 varchar(255), nullable=true
 
     @Builder
-    public Posts(String title, String contents, String author) { //id가 없고 나머지 필드만 있는 생성자
+    public Posts(String title, String content, String author) { //id가 없고 나머지 필드만 있는 생성자
         this.title = title;
-        this.contents = contents;
+        this.content = content;
         this.author = author;
+    }
+
+    public void update(String title,String content){
+        this.title=title;
+        this.content=content;
     }
 }
