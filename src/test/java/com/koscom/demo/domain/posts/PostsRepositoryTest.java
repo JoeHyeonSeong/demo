@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,6 +39,26 @@ public class PostsRepositoryTest {
 
         assertThat(result.get(0).getTitle()).isEqualTo(title);
         assertThat(result.get(0).getContent()).isEqualTo(contents);
+    }
+
+    @Test
+    public void 등록시간_수정시간이_저장된다(){
+        //given
+        LocalDateTime now = LocalDateTime.of(2019,6,4,0,0,0);
+        postsRepository.save(Posts.builder()
+              .title("title")
+              .content("content")
+              .author("author")
+              .build());
+         //when
+         List<Posts> postsList = postsRepository.findAll();
+
+         //then
+         Posts posts = postsList.get(0);
+
+         System.out.println(">>>>>>>>> createDate="+posts.getCreatedDate());
+         assertThat(posts.getCreatedDate()).isAfter(now);
+         assertThat(posts.getModifiedDate()).isAfter(now);
     }
 
 }

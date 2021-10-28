@@ -2,6 +2,7 @@ package com.koscom.demo.service;
 
 import com.koscom.demo.domain.posts.Posts;
 import com.koscom.demo.domain.posts.PostsRepository;
+import com.koscom.demo.web.dto.posts.PostsResponseDto;
 import com.koscom.demo.web.dto.posts.PostsUpdateRequestDto;
 import com.koscom.demo.web.dto.posts.PostssaveRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,11 @@ public class PostsService {
                 .orElseThrow((()->new IllegalArgumentException("사용자 없음 id="+id)));
         entity.update(dto.getTitle(),dto.getContent());
         return entity.getId();
+    }
+
+    public PostsResponseDto findById(Long id){
+        Posts entity=postsRepository.findById(id)
+                .orElseThrow((()->new IllegalArgumentException("사용자 없음 id="+id)));
+        return new PostsResponseDto(entity);
     }
 }
